@@ -1,13 +1,16 @@
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { BotEditor } from "@/pages/BotEditor";
+import { BrowseBots } from "@/pages/BrowseBots";
 import { GameLobby } from "@/pages/GameLobby";
 import { Games } from "@/pages/Games";
 import { Home } from "@/pages/Home";
 import { Leaderboard } from "@/pages/Leaderboard";
 import { Login } from "@/pages/Login";
 import { MatchViewer } from "@/pages/MatchViewer";
+import { MyMatches } from "@/pages/MyMatches";
 import { NotFound } from "@/pages/NotFound";
+import { Profile } from "@/pages/Profile";
 import { Register } from "@/pages/Register";
 
 function Nav() {
@@ -19,7 +22,8 @@ function Nav() {
         <Link to="/games">Games</Link>
         {user ? (
           <>
-            <span className="nav-user">{user.username}</span>
+            <Link to="/my/matches">My matches</Link>
+            <Link to={`/players/${user.username}`}>{user.username}</Link>
             <button className="nav-logout" onClick={logout}>Sign out</button>
           </>
         ) : (
@@ -51,6 +55,12 @@ function AppRoutes() {
         <Route path="/games" element={<Games />} />
         <Route path="/games/:gameId" element={<GameLobby />} />
         <Route path="/leaderboard/:gameId" element={<Leaderboard />} />
+        <Route path="/games/:gameId/bots" element={<BrowseBots />} />
+        <Route path="/players/:username" element={<Profile />} />
+        <Route
+          path="/my/matches"
+          element={<RequireAuth><MyMatches /></RequireAuth>}
+        />
         <Route
           path="/bots/new/edit"
           element={<RequireAuth><BotEditor /></RequireAuth>}

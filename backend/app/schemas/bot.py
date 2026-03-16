@@ -25,3 +25,12 @@ class BotOut(BaseModel):
 
 class BotWithCode(BotOut):
     code: str
+
+
+class PublicBotOut(BaseModel):
+    id: int
+    owner_id: int
+    owner_username: str
+    game_id: str
+    name: str
+    version: int

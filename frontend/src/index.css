@@ -89,6 +89,21 @@ h3 { font-size: 16px; margin: 16px 0 8px; }
 .win { color: var(--success); }
 .loss { color: var(--danger); }
 
+/* Browse bots */
+.bots-table { margin-top: 12px; }
+.muted { color: var(--muted); font-size: 13px; }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 28px; max-width: 420px; width: 90%; display: flex; flex-direction: column; gap: 12px; }
+.modal h2 { font-size: 18px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
+button.secondary { background: var(--border); color: var(--text); }
+
+/* Profile */
+.profile section { margin-top: 28px; }
+.profile h1 { display: flex; align-items: center; gap: 8px; }
+
 /* Bot editor */
 .bot-editor { display: flex; flex-direction: column; height: calc(100vh - 53px); }
 .bot-editor-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); background: var(--surface); gap: 12px; }

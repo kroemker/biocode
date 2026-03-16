@@ -121,6 +121,14 @@ export function GameLobby() {
       )}
 
       <section className="lobby-section">
+        <h2>Challenge players</h2>
+        <p>Browse all published bots and start a ranked match.</p>
+        <Link to={`/games/${gameId}/bots`} className="button-link" style={{ marginTop: 8, display: "inline-block" }}>
+          Browse bots →
+        </Link>
+      </section>
+
+      <section className="lobby-section">
         <h2>Leaderboard</h2>
         <Link to={`/leaderboard/${gameId}`}>View full leaderboard →</Link>
       </section>

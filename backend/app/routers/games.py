@@ -1,7 +1,13 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.database import get_db
 from app.games.registry import get_game, list_games
+from app.models.bot import Bot
+from app.models.user import User
+from app.schemas.bot import PublicBotOut
 
 
 
@@ -48,6 +54,32 @@ async def get_game_info(game_id: str):
 class SampleBotInfo(BaseModel):
     name: str
     description: str
+
+
+@router.get("/{game_id}/bots", response_model=list[PublicBotOut])
+async def list_published_bots(game_id: str, db: AsyncSession = Depends(get_db)):
+    """Return all published bots for a game, including owner username."""
+    try:
+        get_game(game_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Game not found")
+    result = await db.execute(
+        select(Bot, User)
+        .join(User, User.id == Bot.owner_id)
+        .where(Bot.game_id == game_id, Bot.is_published == True)  # noqa: E712
+        .order_by(Bot.name)
+    )
+    return [
+        PublicBotOut(
+            id=bot.id,
+            owner_id=bot.owner_id,
+            owner_username=user.username,
+            game_id=bot.game_id,
+            name=bot.name,
+            version=bot.version,
+        )
+        for bot, user in result.all()
+    ]
 
 
 @router.get("/{game_id}/sample-bots", response_model=list[SampleBotInfo])

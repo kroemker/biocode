@@ -41,6 +41,30 @@ export interface MatchReplay extends Match {
   replay: unknown[] | null;
 }
 
+export interface PublicBot {
+  id: number;
+  owner_id: number;
+  owner_username: string;
+  game_id: string;
+  name: string;
+  version: number;
+}
+
+export interface RatingSummary {
+  game_id: string;
+  elo: number;
+  wins: number;
+  losses: number;
+  draws: number;
+}
+
+export interface UserProfile {
+  id: number;
+  username: string;
+  ratings: RatingSummary[];
+  published_bots: PublicBot[];
+}
+
 export interface LeaderboardEntry {
   rank: number;
   user_id: number;
