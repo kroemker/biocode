@@ -65,6 +65,36 @@ export interface UserProfile {
   published_bots: PublicBot[];
 }
 
+export interface TournamentOut {
+  id: number;
+  name: string;
+  game_id: string;
+  status: "registration" | "active" | "completed";
+  max_participants: number;
+  created_by: number;
+  participant_count: number;
+  winner_bot_id: number | null;
+  winner_bot_name: string | null;
+}
+
+export interface TournamentMatch {
+  id: number;
+  round: number;
+  position: number;
+  bot1_id: number | null;
+  bot1_name: string | null;
+  bot2_id: number | null;
+  bot2_name: string | null;
+  match_id: number | null;
+  winner_bot_id: number | null;
+  is_bye: boolean;
+}
+
+export interface TournamentDetail extends TournamentOut {
+  total_rounds: number;
+  bracket: TournamentMatch[];
+}
+
 export interface LeaderboardEntry {
   rank: number;
   user_id: number;

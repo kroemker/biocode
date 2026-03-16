@@ -2,7 +2,7 @@
  * Typed API client. All requests go through /api (proxied to the backend).
  * Token is stored in localStorage so it survives page refreshes.
  */
-import type { Bot, BotWithCode, GameInfo, LeaderboardEntry, Match, MatchReplay, PublicBot, SampleBot, User, UserProfile } from "@/types";
+import type { Bot, BotWithCode, GameInfo, LeaderboardEntry, Match, MatchReplay, PublicBot, SampleBot, TournamentDetail, TournamentOut, User, UserProfile } from "@/types";
 
 const TOKEN_KEY = "botarena_token";
 
@@ -89,4 +89,15 @@ export const matches = {
 
 export const leaderboard = {
   get: (gameId: string) => request<LeaderboardEntry[]>("GET", `/leaderboard/${gameId}`),
+};
+
+export const tournaments = {
+  list: () => request<TournamentOut[]>("GET", "/tournaments/"),
+  get: (id: number) => request<TournamentDetail>("GET", `/tournaments/${id}`),
+  create: (name: string, gameId: string, maxParticipants: number) =>
+    request<TournamentOut>("POST", "/tournaments/", { name, game_id: gameId, max_participants: maxParticipants }),
+  join: (tournamentId: number, botId: number) =>
+    request<TournamentOut>("POST", `/tournaments/${tournamentId}/join?bot_id=${botId}`),
+  start: (tournamentId: number) =>
+    request<TournamentOut>("POST", `/tournaments/${tournamentId}/start`),
 };

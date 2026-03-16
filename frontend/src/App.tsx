@@ -12,6 +12,8 @@ import { MyMatches } from "@/pages/MyMatches";
 import { NotFound } from "@/pages/NotFound";
 import { Profile } from "@/pages/Profile";
 import { Register } from "@/pages/Register";
+import { TournamentDetail } from "@/pages/TournamentDetail";
+import { Tournaments } from "@/pages/Tournaments";
 
 function Nav() {
   const { user, logout } = useAuth();
@@ -20,6 +22,7 @@ function Nav() {
       <Link to="/" className="nav-brand">BotArena</Link>
       <div className="nav-links">
         <Link to="/games">Games</Link>
+        <Link to="/tournaments">Tournaments</Link>
         {user ? (
           <>
             <Link to="/my/matches">My matches</Link>
@@ -70,6 +73,8 @@ function AppRoutes() {
           element={<RequireAuth><BotEditor /></RequireAuth>}
         />
         <Route path="/matches/:matchId" element={<MatchViewer />} />
+        <Route path="/tournaments" element={<Tournaments />} />
+        <Route path="/tournaments/:tournamentId" element={<TournamentDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

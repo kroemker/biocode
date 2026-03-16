@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth, bots, games, leaderboard, matches, users
+from app.routers import auth, bots, games, leaderboard, matches, tournaments, users
 
 
 @asynccontextmanager
@@ -36,6 +36,7 @@ app.include_router(bots.router, prefix="/api")
 app.include_router(matches.router, prefix="/api")
 app.include_router(leaderboard.router, prefix="/api")
 app.include_router(users.router, prefix="/api")
+app.include_router(tournaments.router, prefix="/api")
 
 
 @app.get("/api/health")
