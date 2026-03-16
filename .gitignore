@@ -1,0 +1,21 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+dist/
+*.egg-info/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Alembic (generated migrations go in version control; only ignore local artifacts)
+*.pyc
+
+# OS
+.DS_Store
