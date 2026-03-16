@@ -12,6 +12,11 @@ export interface GameInfo {
   max_turns: number;
 }
 
+export interface SampleBot {
+  name: string;
+  description: string;
+}
+
 export interface Bot {
   id: number;
   owner_id: number;
@@ -34,4 +39,14 @@ export interface Match {
 
 export interface MatchReplay extends Match {
   replay: unknown[] | null;
+}
+
+export interface LeaderboardEntry {
+  rank: number;
+  user_id: number;
+  username: string;
+  elo: number;
+  wins: number;
+  losses: number;
+  draws: number;
 }

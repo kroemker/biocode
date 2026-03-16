@@ -3,6 +3,8 @@ from pydantic import BaseModel
 
 from app.games.registry import get_game, list_games
 
+
+
 router = APIRouter(prefix="/games", tags=["games"])
 
 
@@ -41,3 +43,21 @@ async def get_game_info(game_id: str):
         player_count=module.player_count,
         max_turns=module.max_turns,
     )
+
+
+class SampleBotInfo(BaseModel):
+    name: str
+    description: str
+
+
+@router.get("/{game_id}/sample-bots", response_model=list[SampleBotInfo])
+async def list_sample_bots(game_id: str):
+    try:
+        get_game(game_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Game not found")
+    # Import lazily so non-RulixBots games don't need to know about this module
+    if game_id == "rulixbots_v1":
+        from app.games.rulixbots.sample_bots import SAMPLE_BOTS
+        return [SampleBotInfo(name=s[0], description=s[1]) for s in SAMPLE_BOTS]
+    return []
