@@ -8,11 +8,10 @@ from app.routers import auth, bots, games, matches
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Register games here before the server starts accepting requests.
-    # Example (uncomment when the module exists):
-    #   from app.games.rulixbots import RulixBotsModule, RulixBotExecutorFactory
-    #   from app.games.registry import register_game
-    #   register_game(RulixBotsModule(), RulixBotExecutorFactory())
+    from app.games.rulixbots.module import RulixBotsModule
+    from app.games.rulixbots.executor import RulixBotExecutorFactory
+    from app.games.registry import register_game
+    register_game(RulixBotsModule(), RulixBotExecutorFactory())
     yield
 
 
